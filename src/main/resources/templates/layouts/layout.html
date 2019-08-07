@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+<head th:replace="fragments/header :: headFragment"></head>
+<body>
+<header th:replace="fragments/header :: headerFragment">
+    <p>This is default header area for default layout</p>
+</header>
+
+<div layout:fragment="content"></div>
+
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+</body>
+</html>
