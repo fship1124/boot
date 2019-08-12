@@ -3,13 +3,18 @@ package com.tutorial.boot.controller;
 import com.tutorial.boot.model.Todo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 @RestController
 public class BasicController {
@@ -24,12 +29,26 @@ public class BasicController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
     @CrossOrigin
-    public ResponseEntity<?> upload(@RequestParam("extraField") String extraField, @RequestParam("file") MultipartFile[] files) {
+    public ResponseEntity<?> upload(@RequestParam("extraField") String extraField, @RequestParam("file") MultipartFile[] uploadfiles) {
         System.out.println(extraField);
+        System.out.println(uploadfiles.length);
+
+        String uploadedFileName = Arrays.stream(uploadfiles).map(x -> x.getOriginalFilename())
+                .filter(x -> !StringUtils.isEmpty(x)).collect(Collectors.joining(" , "));
+
+        System.out.println(uploadedFileName.toString());
+
+        return new ResponseEntity("Successfully uploaded - " + extraField, HttpStatus.OK);
+    }
+
+
+
+        @RequestMapping(value = "/curlUpload", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+    @CrossOrigin
+    public ResponseEntity<?> curlUpload(@RequestParam("file") MultipartFile[] files) {
         System.out.println(files.length);
 
-        //return new Todo(counter.incrementAndGet(), "라면사오기");
-        return new ResponseEntity("Successfully uploaded - " + extraField, HttpStatus.OK);
+        return new ResponseEntity("Successfully uploaded - " + "aaa", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/todop", method = RequestMethod.POST)
