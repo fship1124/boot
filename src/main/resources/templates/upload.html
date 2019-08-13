@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Photo forwarding</title>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<!-- 헤더 -->
+<div class="header">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#" >LOGO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle Navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Forwarding</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Page2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Log In</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<!-- 첫 번째 섹션 -->
+<div class="box-padding-big grey-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>찾아보기 버튼을 클릭하여<br><strong>이미지를 선택합니다.</strong></h2>
+
+                <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+                    <input type="text" name="extraField"/><br/><br/>
+                    <input type="file" name="files"/><br/><br/>
+                    <input type="file" name="files"/><br/><br/>
+                    <input type="submit" value="Submit" id="btnSubmit"/>
+                </form>
+
+                <!--
+                <form enctype="multipart/form-data" method="post">
+                    <input id="file" type="file" size="50" OnChange="preview(this)"><br>
+                    <div id="previewer" style="border:1px solid #d7d7d7; width:300px; height: 300px;"><div>
+                </form>
+                -->
+            </div>
+            <div class="btn btn-primary btn-lg" id="fbtn">Forwading</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+		function preview(e) {
+			var imageNm = $('#file').val();
+
+			if(imageNm){
+				var ext = imageNm.split('.').pop().toLowerCase();
+
+				if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+					alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
+					return;
+				}
+			}
+		}
+
+		$("#btnSubmit").click(function (event) {
+			//stop submit the form, we will post it manually.
+			event.preventDefault();
+
+			fire_ajax_submit();
+		});
+		function fire_ajax_submit() {
+			 // Get form
+			//var form = $('#fileUploadForm')[0];
+			var form = $('#fileUploadForm');
+			console.dir(form);
+			var formData = new FormData();
+			//$("#btnSubmit").prop("disabled", true);
+			formData.append('file', $('input[type=file]')[0].files[0]);
+			formData.append('extraField', $('input[name=extraField]').val());
+
+			$.ajax({
+				type : 'post',
+				enctype : 'multipart/form-data',
+				url : 'http://localhost:8888/upload',
+				data : formData,
+				dataType : 'text',
+				processData : false,
+				contentType : false,
+				cache : false,
+				timeout : 600000,
+				success : function(response){
+					alert('success');
+					console.log(response);
+				}
+			})
+		};
+		$('#fbtn').click(function() {
+			alert("c");
+
+			//폼객체를 불러와서
+			//var form = $('form')[0];
+
+
+			//FormData parameter에 담아줌
+			var formData = new FormData();
+			console.dir(formData);
+			formData.append('file', $('#file')[0].files[0]);
+			console.dir(formData);
+
+
+			$.ajax({
+				type : 'post',
+				enctype: 'multipart/form-data',
+				url : 'http://localhost:8888/upload',
+				data : formData,
+				dataType : "text",
+				processData : false,
+				contentType : false,
+				success : function(data){
+					alert('success');
+					console.log(data);
+				}
+			})
+		});
+
+	// test : C:\Users\user>curl -F file=@"C:\Users\user\Desktop\linux exam.txt" http://localhost:8888/curlUpload
+	// Successfully uploaded - aaa
+	</script>
+</body>
+</html>
