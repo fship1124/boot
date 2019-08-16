@@ -38,4 +38,10 @@ public class VueController {
 
         return "vue/watch";
     }
+    @RequestMapping(value = "/style")
+    public String style(Model model) {
+        model.addAttribute("message", "about instance");
+
+        return "vue/style";
+    }
 }

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml"
+      layout:decorator="layouts/layout"
+      >
+
+<body>
+<dev layout:fragment="content">
+    <div id="example">
+        <div :class="{ active: isActive}"></div>
+        <div :class="{ active: isActive, 'text-danger': hasError }"></div>
+        <div :class="classObject"></div>
+        <div :class="classObject2"></div>
+        <div :class="[activeClass, errorClass]"></div>
+        <div :class="[{ active: isActive }, errorClass]"></div>
+
+        <my-component class="baz boo"></my-component>
+        <my-component class="{ active: isActive }"></my-component>
+
+        <h1>인라인 스타일 바인딩</h1>
+        <div :style="{ color: activeColor, fontSize: fontSize + 'px' }">
+            인라인 스타일 바인딩
+        </div>
+        <div :style="styleObject">
+            인라인 스타일 바인딩
+        </div>
+    </div>
+
+
+    <script th:inline="javascript">
+        Vue.component('my-component', {
+           template: '<p class="foo bar">H1</p>'
+        });
+
+        let vm = new Vue({
+            el: '#example',
+            data: {
+                isActive: true,
+                error: null,
+                hasError: false,
+                classObject: {
+                    active: true,
+                    'text-danger': false
+                },
+                activeClass: 'active',
+                errorClass: 'text-danger',
+                activeColor: 'red',
+                fontSize: 30,
+                styleObject: {
+                    color: 'blue',
+                    fontSize: '13px'
+                }
+            },
+            computed: {
+                classObject2: function () {
+                    return {
+                        active: this.isActive && !this.error,
+                        'text-danger': this.error && this.error.type === 'fatal'
+                    }
+                }
+            }
+        });
+
+    </script>
+</dev >
+</body>
+</html>
