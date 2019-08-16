@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/layout"
+      xmlns:v-on="http://www.w3.org/1999/xhtml"
+      v-bind="http://www.w3.org/1999/xhtml">
+
+<body>
+<dev layout:fragment="content">
+    <ddev id="app">
+        <p>{{foo}}</p>
+        <button v-on:click="foo = 'baz'">change it</button>
+
+    </ddev>
+
+
+    <script th:inline="javascript">
+
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                foo: 'emacs',
+                newTodoText: '',
+                visitCount: 0,
+                hideCompletedTodos: false,
+                todos: [],
+                error: null
+            }
+        });
+
+
+        // $watch 는 인스턴스 메소드 입니다.
+        vm.$watch('foo', function (newVal, oldVal) {
+            // `vm.a`가 변경되면 호출 됩니다.
+            console.log(newVal);
+            console.log(oldVal);
+        })
+    </script>
+</dev >
+</body>
+</html>

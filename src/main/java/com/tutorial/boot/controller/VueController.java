@@ -14,4 +14,10 @@ public class VueController {
 
         return "vue/start";
     }
+    @RequestMapping(value = "/instance")
+    public String instance(Model model) {
+        model.addAttribute("message", "about instance");
+
+        return "vue/instance";
+    }
 }
