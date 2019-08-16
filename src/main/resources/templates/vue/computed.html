@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml"
+      layout:decorator="layouts/layout"
+      >
+
+<body>
+<dev layout:fragment="content">
+    <dev id="app">
+        <div id="example">
+            {{ message.split('').reverse().join('') }}
+            <br>
+            <p>원본 메시지: "{{ message }}"</p>
+            <p>역순으로 표시한 메시지: "{{ reversedMessage }}"</p>
+
+            methods 사용
+            <h1>{{ fullName }}</h1>
+            computed 사용
+            <h1>{{ fullName2 }}</h1>
+            get, set 사용
+            <h1>{{ fullName3 }}</h1>
+        </div>
+    </dev>
+
+
+    <script th:inline="javascript">
+        let vm = new Vue({
+            el: '#example',
+            data: {
+                message: '안녕하세요',
+                firstName: 'Foo',
+                lastName: 'Bar',
+                fullName: 'Foo Bar',
+                firstName3: 'Foo3',
+                lastName3: 'Bar3',
+            },
+            computed: {
+                // 캐싱을 원할 경우 computed 사용
+                reversedMessage: function() {
+                    return this.message.split('').reverse().join('')
+                },
+                now: function() {
+                    return Date.now();
+                },
+                fullName2: function() {
+                    return this.firstName + ' ' + this.lastName
+                },
+                fullName3: {
+                    get: function () {
+                        return this.firstName3 + ' ' + this.lastName3
+                    },
+                    set: function (newValue) {
+                        var names = newValue.split(' ')
+                        this.firstName3 = names[0]
+                        this.lastName3 = names[names.length - 1]
+                        // 이제 vm.fullName = 'John Doe'를 실행하면 설정자가 호출되고 vm.firstName과 vm.lastName이 그에 따라 업데이트 됩니다.
+                    }
+                }
+            },
+            watch: {
+                firstName: function(val) {
+                    this.fullName = val + this.lastName;
+                },
+                lastName: function(val) {
+                    this.fullName = this.lastName + val;
+                }
+            }
+        });
+
+    </script>
+</dev >
+</body>
+</html>

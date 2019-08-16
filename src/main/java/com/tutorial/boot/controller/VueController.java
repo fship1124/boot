@@ -26,4 +26,10 @@ public class VueController {
 
         return "vue/template";
     }
+    @RequestMapping(value = "/computed")
+    public String computed(Model model) {
+        model.addAttribute("message", "about instance");
+
+        return "vue/computed";
+    }
 }
