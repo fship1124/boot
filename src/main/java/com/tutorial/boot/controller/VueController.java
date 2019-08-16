@@ -44,4 +44,16 @@ public class VueController {
 
         return "vue/style";
     }
+    @RequestMapping(value = "/condition")
+    public String condition(Model model) {
+        model.addAttribute("message", "about instance");
+
+        return "vue/condition";
+    }
+    @RequestMapping(value = "/list")
+    public String list(Model model) {
+        model.addAttribute("message", "about instance");
+
+        return "vue/list";
+    }
 }

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml"
+      layout:decorator="layouts/layout"
+      >
+
+<body>
+<dev layout:fragment="content">
+    <div id="example">
+        <h1 v-if="ok">Yes</h1>
+        <h1 v-else>No</h1>
+
+        <template v-if="ok">
+            <h1>Title</h1>
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+        </template>
+
+        <div v-if="Math.random() > 0.5">
+            이제 나를 볼 수 있어요
+        </div>
+        <div v-else-if="Math.random() < 100">
+            이제 나를 볼 수 있어요222
+        </div>
+        <div v-else>
+            이제는 안보입니다
+        </div>
+
+
+        <div v-if="type === 'A'">
+            A
+        </div>
+        <div v-else-if="type === 'B'">
+            B
+        </div>
+        <div v-else-if="type === 'C'">
+            C
+        </div>
+        <div v-else>
+            Not A/B/C
+        </div>
+
+        <template v-if="loginType === 'username'">
+            <label>사용자 이름</label>
+            <input placeholder="사용자 이름을 입력하세요">
+        </template>
+        <template v-else>
+            <label>이메일</label>
+            <input placeholder="이메일 주소를 입력하세요">
+        </template><br>
+        <button @click.prevent="changTemplate">로그인 유형 변경</button>
+        <br>
+        <template v-if="loginType === 'username'">
+            <label>사용자 이름</label>
+            <input placeholder="사용자 이름을 입력하세요" key="username-input">
+        </template>
+        <template v-else>
+            <label>이메일</label>
+            <input placeholder="이메일 주소를 입력하세요" key="email-input">
+        </template>
+        <br><br>
+        <h1>v-show</h1>
+        <h1 v-show="ok">안녕하세요!</h1>
+        <p>차이점은 v-show가 있는 엘리먼트는 항상 렌더링 되고 DOM에 남아있다는 점입니다. v-show는 단순히 엘리먼트에 display CSS 속성을 토글합니다.</p>
+        <p>일반적으로 v-if는 토글 비용이 높고 v-show는 초기 렌더링 비용이 더 높습니다. 매우 자주 바꾸기를 원한다면 v-show를, 런타임 시 조건이 바뀌지 않으면 v-if를 권장합니다.</p>
+    </div>
+
+
+    <script th:inline="javascript">
+        let vm = new Vue({
+            el: '#example',
+            data: {
+                ok: true,
+                type: 'A',
+                loginType: 'username'
+            },
+            methods: {
+                changTemplate: function() {
+                    this.loginType = this.loginType == 'username' ? 'email' :  'username';
+                }
+            }
+        });
+
+    </script>
+</dev >
+</body>
+</html>
