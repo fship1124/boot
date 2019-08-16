@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/layout"
+      xmlns:v-on="http://www.w3.org/1999/xhtml"
+      v-bind="http://www.w3.org/1999/xhtml">
+
+<body>
+<dev layout:fragment="content">
+
+    <h1>Vue Start!!</h1>
+    <p>
+        Actuator endpoints allow you to monitor and interact with your application.
+        Spring Boot includes a number of built-in endpoints and you can also add your own.
+    </p>
+
+    <div id="app">
+        {{message}}
+        <span v-text="message">
+        </span>
+        <div v-if="seen">
+            if seen
+        </div>
+        <div v-show="seen">
+            show seen
+        </div>
+        <ol>
+            <li v-for="todo in todos">
+                {{ todo.text }}
+            </li>
+        </ol>
+        <button v-on:click="reverseMessage">메시지 뒤집기</button>
+
+
+        <!-- 양방향 바인딩 -->
+        <input v-model="message">
+    </div>
+
+    <dev id="app-2" style="margin-top: 100px">
+        <ol>
+            <todo-item v-for="item in groceryList"
+                       v-bind:todo="item"
+                       v-bind:key="item.id">
+            </todo-item>
+        </ol>
+    </dev>
+
+
+    <script th:inline="javascript">
+        console.log("1");
+
+        Vue.component('todo-item', {
+            props: ['todo'],
+            template: '<li>{{todo.text}}</li>'
+        });
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                message: '안녕하세요 Vue!',
+                messageDate: '이 페이지는 ' + new Date() + ' 에 로드 되었습니다.',
+                seen: false,
+                todos: [
+                    { text: 'JavaScript 배우기' },
+                    { text: 'Vue 배우기' },
+                    { text: '무언가 멋진 것을 만들기' }
+                ]
+            },
+            methods: {
+                reverseMessage: function() {
+                    this.message = this.message.split('').reverse().join('')
+                }
+            }
+        });
+        let app2 = new Vue({
+            el: '#app-2',
+            data: {
+                groceryList: [
+                    { id: 0, text: 'Vegetables' },
+                    { id: 1, text: 'Cheese' },
+                    { id: 2, text: 'Whatever else humans are supposed to eat' }
+                ]
+            }
+        })
+
+    </script>
+</dev >
+</body>
+</html>
