@@ -20,4 +20,10 @@ public class VueController {
 
         return "vue/instance";
     }
+    @RequestMapping(value = "/template")
+    public String template(Model model) {
+        model.addAttribute("message", "about instance");
+
+        return "vue/template";
+    }
 }

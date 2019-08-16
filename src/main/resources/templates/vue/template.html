@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml"
+      layout:decorator="layouts/layout"
+      >
+
+<body>
+<dev layout:fragment="content">
+    <dev id="app">
+        <span>메시지: {{ msg }}</span><br>
+        <span v-once>다시는 변경하지 않습니다: {{ msg }}</span>
+        <p>Using mustaches: {{ rawHtml }}</p>
+        <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+
+        <!--<div v-bind:id="dynamicId"></div>-->
+        <button v-bind:disabled="isButtonDisabled">Button</button>
+
+        {{ number + 1 }}
+        {{ ok ? 'YES' : 'NO' }}
+        {{ msg.split('').reverse().join('') }}
+
+        <div v-bind:id="'list-' + id">
+            아이디 동적
+        </div>
+
+        <p v-if="seen">이제 나를 볼 수 있어요</p>
+        <a v-bind:href="url"> move  </a><br>
+        <a v-on:click="doSomething"> click call method </a>
+        <form v-on:submit.prevent="onSubmit"> ... </form>
+
+        <h1>v-bind 약어</h1>
+        <!-- 전체 문법 -->
+        <a v-bind:href="url"> ... </a>
+        <!-- 약어 -->
+        <a :href="url"> ... </a>
+        <h1>v-on 약어</h1>
+        <!-- 전체 문법 -->
+        <a v-on:click="doSomething"> ... </a>
+        <!-- 약어 -->
+        <a @click="doSomething"> ... </a>
+
+    </dev>
+
+
+    <script th:inline="javascript">
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                number: 5,
+                msg: 'korea',
+                ok: true,
+                id: '3',
+                rawHtml: '<span style="color:red">This should be red.</span>',
+                isButtonDisabled: '',   // '' is true
+                seen: '',               // '' is false 조건문
+                url: 'http:www.naver.com',
+
+            },
+            methods: {
+                doSomething : function() {
+                    console.log("doSomething");
+                }
+            }
+        });
+
+    </script>
+</dev >
+</body>
+</html>
