@@ -32,4 +32,10 @@ public class VueController {
 
         return "vue/computed";
     }
+    @RequestMapping(value = "/watch")
+    public String watch(Model model) {
+        model.addAttribute("message", "about instance");
+
+        return "vue/watch";
+    }
 }
