@@ -54,6 +54,6 @@ public class VueController {
     public String list(Model model) {
         model.addAttribute("message", "about instance");
 
-        return "vue/list";
+        return "list_back";
     }
 }

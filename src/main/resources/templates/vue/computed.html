@@ -53,9 +53,9 @@
                         return this.firstName3 + ' ' + this.lastName3
                     },
                     set: function (newValue) {
-                        var names = newValue.split(' ')
-                        this.firstName3 = names[0]
-                        this.lastName3 = names[names.length - 1]
+                        let names = newValue.split(' ');
+                        this.firstName3 = names[0];
+                        this.lastName3 = names[names.length - 1];
                         // 이제 vm.fullName = 'John Doe'를 실행하면 설정자가 호출되고 vm.firstName과 vm.lastName이 그에 따라 업데이트 됩니다.
                     }
                 }
