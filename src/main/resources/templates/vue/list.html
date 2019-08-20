@@ -3,14 +3,107 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:v-bind="http://www.w3.org/1999/xhtml"
       xmlns:v-on="http://www.w3.org/1999/xhtml"
-      layout:decorator="layouts/layout">
+      layout:decorator="layouts/layout"
+>
 
 <body>
-    <dev layout:fragment="content">
+<dev layout:fragment="content">
+    <div id="example">
+        <li v-for="item in items">
+            {{ item.message }}
+        </li>
 
-    </dev>
+        <ul id="v-for-object" class="demo">
+            <li v-for="value in object">
+                {{ value }}
+            </li>
+        </ul>
+        <div v-for="(value, key) in object">
+            {{ key }}: {{ value }}
+        </div>
+        <div v-for="(value, key, index) in object">
+            {{ index }}. {{ key }} : {{ value }}
+        </div>
+
+        <h1>key</h1>
+        <p>Vue에서 개별 DOM 노드들을 추적하고 기존 엘리먼트를 재사용, 재정렬하기 위해서 v-for의 각 항목들에 고유한 key 속성을 제공해야 합니다. </p>
+
+        <div v-for="item in items" :key="item.id">
+            <!-- content -->
+            {{ item.message }}
+        </div>
+        <h1>필터링 / 정렬 된 결과 표시하기</h1>
+        <p>때로 원본 데이터를 실제로 변경하거나 재설정하지 않고 배열의 필터링 된 버전이나 정렬된 버전을 표시해야 할 필요가 있습니다. 이 경우 필터링 된 배열이나 정렬된 배열을 반환하는 계산된 속성을 만들 수 있습니다.</p>
+        <li v-for="n in evenNumbers">{{ n }}</li>
+        <li v-for="n in even(numbers)">{{ n }}</li>
+
+        <h1>Range v-for</h1>
+        <div>
+            <span v-for="n in 10">{{ n }} </span>
+        </div>
+
+        <ul>
+            <template v-for="item in items">
+                <li>{{ item.message }}</li>
+                <li class="divider"></li>
+            </template>
+        </ul>
+
+        <h1>v-for 와 v-if</h1>
+        <p>동일한 노드에 두가지 모두 있다면, v-for가 v-if보다 높은 우선순위를 갖습니다. 즉, v-if는 루프가 반복될 때마다 실행됩니다. 이는 _일부_ 항목만 렌더링 하려는 경우 유용합니다.</p>
+
+
+        <ul v-if="todos.length">
+            <li v-for="todo in todos">
+                {{ todo }}
+            </li>
+        </ul>
+        <p v-else>No todos left!</p>
+    </div>
+
+
     <script th:inline="javascript">
-        console.log("1");
+        let vm = new Vue({
+            el: '#example',
+            data: {
+                items: [
+                    { message: 'Foo'},
+                    { message: 'Bar'},
+                    { message: 'san'},
+                    { message: 'buu'}
+                ],
+                items2: [
+                    { message: 'Foo'},
+                    { message: 'Foo222'},
+                    { message: 'san'},
+                    { message: 'buu'}
+                ],
+                object: {
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    age: 30
+                },
+                numbers: [ 1, 2, 3, 4, 5 ],
+                todos: [ 1, 2, 3, 4, 5 ],
+            },
+            computed: {
+                evenNumbers: function () {
+                    return this.numbers.filter(function (number) {
+                        return number % 2 === 0;
+                    })
+                }
+            },
+            methods: {
+                even: function (numbers) {
+                    return numbers.filter(function (number) {
+                        return number % 2 === 0;
+                    })
+                }
+            }
+        });
+
+
     </script>
+</dev >
 </body>
 </html>

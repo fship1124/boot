@@ -54,6 +54,18 @@ public class VueController {
     public String list(Model model) {
         model.addAttribute("message", "about instance");
 
-        return "list_back";
+        return "vue/list";
+    }
+    @RequestMapping(value = "/component_for")
+    public String component_for(Model model) {
+        model.addAttribute("message", "about instance");
+
+        return "vue/component_for";
+    }
+    @RequestMapping(value = "/event")
+    public String event(Model model) {
+        model.addAttribute("message", "about instance");
+
+        return "vue/event";
     }
 }
