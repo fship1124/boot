@@ -1,0 +1,30 @@
+body {
+  background-color: lightblue;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+p {
+  font-family: verdana;
+  font-size: 20px;
+}
+
+#list {
+    width:400px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+#list td, #list th {
+    border: 1px solid black;
+    text-align: center;
+}
+#list > thead > tr {
+    color: yellow; background-color: purple;
+}
+.divider {
+    height: 2px; background-color: gray;
+}
+</style>

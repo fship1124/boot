@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/layout"
+      xmlns:v-on="http://www.w3.org/1999/xhtml"
+      v-bind="http://www.w3.org/1999/xhtml">
+
+<body>
+
+<dev layout:fragment="content">
+
+    <div id="example">
+        <table id="list">
+            <thead>
+                <tr>
+                    <th>번호</th><th>이름</th><th>전화번호</th><th>주소</th>
+                </tr>
+            </thead>
+            <tbody id="contacts">
+
+                <template v-for="(contact, index) in contacts">
+                    <tr :key="contact.no">
+                        <td>{{index + 1}}</td>
+                        <td>{{contact.name}}</td>
+                        <td>{{contact.tel}}</td>
+                        <td>{{contact.address}}</td>
+                    </tr>
+                    <tr class="divider" v-if="index % 5===4">
+                        <td colspan="4"></td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+        <table id="list2">
+            <thead>
+                <tr>
+                    <th>번호</th><th>이름</th><th>전화번호</th><th>주소</th>
+                </tr>
+            </thead>
+            <tbody id="contacts2">
+                <tr v-for="(contact, index) in contacts" v-if="contact.address.indexOf('서울') > -1">
+                    <td>{{index + 1}}</td>
+                    <td>{{contact.name}}</td>
+                    <td>{{contact.tel}}</td>
+                    <td>{{contact.address}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr/>
+
+        <select id="regions">
+            <option disabled="disabled" selected>지역을 선택하세요</option>
+            <option v-for="(val, key) in regions" :value="key">{{val}}</option>
+        </select>
+
+
+    </div>
+
+
+    <script th:inline="javascript">
+        var model = {
+            'pageno': 1,
+            'pagesize': 10,
+            'totalcount': 100,
+            'contacts': [
+                { 'no': 100, 'name': '설현', 'tel': '010-3456-8299', 'address': '서울' },
+                { 'no': 99, 'name': '혜리', 'tel': '010-3456-8299', 'address': '서울' },
+                { 'no': 98, 'name': '하니', 'tel': '010-3456-8299', 'address': '경기' },
+                { 'no': 97, 'name': '성소', 'tel': '010-3456-8299', 'address': '제주' },
+                { 'no': 96, 'name': '설현', 'tel': '010-3456-8299', 'address': '서울' },
+                { 'no': 95, 'name': '설현', 'tel': '010-3456-8299', 'address': '강원' },
+                { 'no': 94, 'name': '설현', 'tel': '010-3456-8299', 'address': '충주' },
+                { 'no': 93, 'name': '설현', 'tel': '010-3456-8299', 'address': '경기' },
+                { 'no': 92, 'name': '설현', 'tel': '010-3456-8299', 'address': '서울' },
+                { 'no': 91, 'name': '설현', 'tel': '010-3456-8299', 'address': '서울' },
+            ],
+             'regions': {
+                'A': 'Asia',
+                'B': 'America',
+                'C': 'Europe',
+                'D': 'Africa',
+                'E': 'Oceania'
+            }
+
+        }
+
+
+        var simple1 = new Vue({
+            el: '#example',
+            data: model
+        });
+
+
+    </script>
+</dev >
+</body>
+</html>

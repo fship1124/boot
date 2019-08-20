@@ -14,6 +14,18 @@ public class VueController {
 
         return "vue/start";
     }
+    @RequestMapping(value = "/start2")
+    public String start2(Model model) {
+        model.addAttribute("message", "hello boot");
+
+        return "vue/start2";
+    }
+    @RequestMapping(value = "/for")
+    public String for1(Model model) {
+        model.addAttribute("message", "hello boot");
+
+        return "vue/for";
+    }
     @RequestMapping(value = "/instance")
     public String instance(Model model) {
         model.addAttribute("message", "about instance");

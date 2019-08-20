@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/layout"
+      xmlns:v-on="http://www.w3.org/1999/xhtml"
+      v-bind="http://www.w3.org/1999/xhtml">
+
+<body>
+<dev layout:fragment="content">
+
+    <div id="simple1">
+        <div>좋아하는 과일을 모두 골라주세요 : </div>
+        <input type="checkbox" value="1" v-model="fruits">사과,
+        <input type="checkbox" value="2" v-model="fruits">키위,
+        <input type="checkbox" value="3" v-model="fruits">포도,
+        <input type="checkbox" value="4" v-model="fruits">수박,
+        <input type="checkbox" value="5" v-model="fruits">참외
+    </div>
+
+    <hr/>
+    <div id="simple2">
+        선택한 과일들 : <span v-html="fruits"></span>
+
+    </div>
+
+
+    <script th:inline="javascript">
+        console.log("1");
+
+        var model = {
+            fruits : []
+        };
+
+        var simple1 = new Vue({
+            el: '#simple1',
+            data: model
+        });
+        var simple2 = new Vue({
+            el: '#simple2',
+            data: model
+        });
+
+    </script>
+</dev >
+</body>
+</html>

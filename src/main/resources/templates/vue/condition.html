@@ -66,6 +66,23 @@
         <h1 v-show="ok">안녕하세요!</h1>
         <p>차이점은 v-show가 있는 엘리먼트는 항상 렌더링 되고 DOM에 남아있다는 점입니다. v-show는 단순히 엘리먼트에 display CSS 속성을 토글합니다.</p>
         <p>일반적으로 v-if는 토글 비용이 높고 v-show는 초기 렌더링 비용이 더 높습니다. 매우 자주 바꾸기를 원한다면 v-show를, 런타임 시 조건이 바뀌지 않으면 v-if를 권장합니다.</p>
+
+        <hr/>
+
+        예금액: <input type="text" v-model="amount" />
+        <img v-if="amount < 0" src="http://sample.bmaster.kro.kr/img/error.png" title="마이너스는 허용하지 않습니다" style="width: 15px; height: 15px; vertical-align:middle" />
+
+        <hr/>
+
+        잔고 : <input type="text" v-model="balance" />
+        <br/>
+        회원님의 등급
+        <span v-if="balance >= 1000000">Gold</span>
+        <span v-else-if="balance >= 500000">Silber</span>
+        <span v-else-if="balance >= 200000">Bronze</span>
+        <span v-else>Basic</span>
+
+
     </div>
 
 
@@ -75,7 +92,9 @@
             data: {
                 ok: true,
                 type: 'A',
-                loginType: 'username'
+                loginType: 'username',
+                amount: 0,
+                balance: 0
             },
             methods: {
                 changTemplate: function() {
@@ -83,6 +102,8 @@
                 }
             }
         });
+
+
 
     </script>
 </dev >
